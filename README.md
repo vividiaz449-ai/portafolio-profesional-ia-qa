@@ -2,7 +2,7 @@
 
 Portafolio público de **Viviana Andrea Rodríguez Díaz**, profesional en publicidad con cerca de cuatro años de experiencia en administración, evolución y calidad de asistentes conversacionales desde Global HITSS para Claro Colombia.
 
-**[Ver el portafolio web](https://vividiaz449-ai.github.io/portafolio-profesional-ia-qa/)** · **[Probar el laboratorio QA](https://vividiaz449-ai.github.io/portafolio-profesional-ia-qa/demo-descarga-factura.html)**
+**[Ver el portafolio web](https://vividiaz449-ai.github.io/portafolio-profesional-ia-qa/)** · **[Descargar hoja de vida ATS (PDF)](Viviana%20Andrea%20Rodriguez%20Diaz.pdf)** · **[Probar el laboratorio QA](https://vividiaz449-ai.github.io/portafolio-profesional-ia-qa/demo-descarga-factura.html)**
 
 ## Qué encontrarás aquí
 
