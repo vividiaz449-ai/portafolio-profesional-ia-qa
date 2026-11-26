@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laboratorio QA · Descarga de factura simulada</title>
+<style>
+:root{font-family:Inter,"Segoe UI",Arial,sans-serif;color:#183b3f;background:#eff5f2}
+*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}
+a{color:#087b78}button{cursor:pointer}
+.wrap{max-width:1150px;margin:auto;padding:25px 20px 70px}
+.top{display:flex;gap:15px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.back{font-weight:700;text-decoration:none}.badge{font-size:11px;letter-spacing:.1em;font-weight:800;color:#0c6764;background:#d9efea;padding:9px 12px;border-radius:30px}
+h1{margin:19px 0 10px;font-size:clamp(27px,4vw,43px);line-height:1.1}h2{margin:0 0 12px;font-size:19px}.lead{max-width:830px;line-height:1.7;color:#536b6d;margin:0 0 24px}
+.panel{background:white;border-radius:19px;padding:22px;box-shadow:0 5px 28px #12343b0d;border:1px solid #dae5df}
+.layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(275px,.7fr);gap:18px}
+.tabs{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.tab,.action{border:1px solid #c5ded8;background:#fff;color:#0c6866;padding:11px 14px;border-radius:10px;font-weight:800}
+.tab[aria-selected=true],.primary{background:#0e7774;color:#fff;border-color:#0e7774}
+.secondary{background:#e8f3f0;color:#106761;border:1px solid #c6e5de}
+.danger{color:#8c3838;border-color:#efd4d0;background:#fff8f7}
+.chat{background:#f7faf9;border:1px solid #dce9e4;border-radius:14px;display:flex;flex-direction:column;min-height:460px}
+.chat-head{padding:14px 16px;background:#164b4f;color:white;border-radius:13px 13px 0 0;font-size:14px;font-weight:800}
+.chat-head small{display:block;font-size:11px;font-weight:400;color:#c8e9e0;margin-top:3px}
+.messages{padding:18px;flex:1;min-height:310px;max-height:530px;overflow:auto}
+.msg{padding:12px 14px;max-width:90%;border-radius:12px;margin:0 0 12px;line-height:1.55;font-size:14px;white-space:pre-line}
+.bot{background:#e9f2ee;border-top-left-radius:3px}.user{background:#cee9e3;border-top-right-radius:3px;margin-left:auto}
+.widget{background:white;border:1px solid #c4ddd7;border-radius:12px;margin:0 0 12px;padding:15px;max-width:98%}
+.widget-title{font-size:13px;font-weight:800;margin:0 0 9px}
+.option-list{display:grid;gap:7px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.option-list button{padding:10px;border:1px solid #91c6bb;border-radius:8px;background:#f8fffc;color:#085e5b;font-weight:700;font-size:12px}
+.doc{background:#fff;border:1px solid #9bcfc3;border-radius:12px;padding:14px;margin-bottom:12px;max-width:100%}
+.doc strong{display:block;margin-bottom:6px}.doc a{display:inline-block;padding:9px 12px;background:#0e7774;border-radius:8px;color:white;text-decoration:none;font-size:13px;font-weight:800;margin-top:8px}
+.controls{padding:12px 16px 15px;border-top:1px solid #d6e6de}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f7be60;outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.action{margin:5px 7px 5px 0}
+.field{margin:12px 0;display:block;font-weight:700;font-size:13px}
+.field select,.field input,.field textarea,select,textarea{width:100%;padding:10px;border:1px solid #bdd6cf;border-radius:8px;background:#fff;color:#16383b;margin-top:7px}
+.field input{width:100%}.hint{color:#5e7474;font-size:12px;line-height:1.6}
+.note{border-left:3px solid #c09c53;padding:10px 13px;background:#fffaf0;color:#75593a;font-size:13px;line-height:1.6;margin:15px 0}
+.divider{border:0;border-top:1px solid #e1eae7;margin:20px 0}
+.status{font-size:13px;font-weight:800;color:#117665}
+.case{font-size:13px;line-height:1.6;background:#edf6f4;border-radius:10px;padding:12px;margin:12px 0}
+.footnote{margin-top:20px;color:#688080;font-size:12px;line-height:1.7}
+.login{display:grid;gap:8px}.login label{font-size:13px;font-weight:700}.login input{padding:10px;border:1px solid #bed7d0;border-radius:8px;width:100%}
+.login .row{display:flex;gap:8px;flex-wrap:wrap}.alert{padding:8px;border-radius:8px;background:#fff4f3;color:#97443c;font-size:12px}
+.test-actions{display:flex;flex-wrap:wrap;gap:7px}.test-actions button{padding:9px 11px;border:1px solid #c1d6cf;background:#fff;border-radius:9px;font-weight:700;font-size:12px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.wrap{padding:20px 12px 60px}.panel{padding:15px}.option-list{grid-template-columns:1fr}.chat{min-height:420px}.msg{max-width:96%}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="top"><a class="back" href="./index.html#proyectos">← Volver al portafolio</a><span class="badge">SIMULACIÓN EDUCATIVA · NO OFICIAL</span></div>
+<h1>Laboratorio QA: descarga de factura</h1>
+<p class="lead">Prototipo ficticio basado en una reconstrucción profesional del comportamiento recordado de un asistente conversacional. Permite practicar casos QA de dos canales, registrar resultados observados y exportarlos. No se conecta a Claro, no usa cuentas reales y no reproduce la interfaz original.</p>
+<div class="layout">
+<section class="panel">
+<h2>1. Ejecuta el recorrido conversacional</h2>
+<div class="tabs" role="tablist" aria-label="Seleccionar canal"><button class="tab" id="tab-app" role="tab" aria-selected="true" type="button">📱 App · sesión iniciada</button><button class="tab" id="tab-web" role="tab" aria-selected="false" type="button">💻 Web · sin autenticar</button></div>
+<div class="chat">
+<div class="chat-head">Asistente de demostración <small id="channel-label">Canal App · ambiente simulado</small></div>
+<div class="messages" id="messages" role="log" aria-live="polite"></div>
+<div class="controls"><button class="action primary" id="start" type="button">Solicitar descarga de factura</button><button class="action secondary" id="other" type="button">Intentar factura ajena</button><button class="action" id="reset" type="button">Reiniciar chat</button></div>
+</div>
+<p class="footnote">Los PDF generados son ejemplos de prueba con una cuenta ficticia. Nunca introduzcas tu usuario o contraseña reales.</p>
+</section>
+<aside class="panel">
+<h2>2. Configuración de escenarios</h2>
+<div id="app-config">
+<label class="field">Facturas disponibles en cuenta ficticia
+<select id="count"><option value="6">6 facturas (flujo habitual de prueba)</option><option value="2">2 facturas (caso límite)</option><option value="7">7 facturas en origen (mostrar máximo 6)</option></select></label>
+<label class="field">Estado de sesión App
+<select id="app-session"><option value="valid">Autenticada</option><option value="expired">Caducada (simulación)</option></select></label>
+</div>
+<div id="web-config" hidden><p class="hint">La Web inicia sin autenticación. Al solicitar la descarga aparece una ventana integrada en el chat. Credenciales <strong>ficticias</strong>:</p><div class="note"><strong>Usuario:</strong> demo<br><strong>Contraseña:</strong> demo123</div><button class="action danger" id="expire-web" type="button">Caducar sesión Web</button></div>
+<label class="field">Disponibilidad de servicio
+<select id="service"><option value="ok">Disponible</option><option value="fail">Fallo simulado del PDF</option></select></label>
+<p class="hint"><strong>Para pruebas negativas:</strong> cambia el número de facturas, simula una sesión caducada, prueba credenciales incorrectas o pulsa «Intentar factura ajena».</p>
+<hr class="divider">
+<h2>3. Registra una prueba QA</h2>
+<label class="field">Caso de la matriz
+<select id="case"></select></label>
+<div id="case-info" class="case"></div>
+<label class="field">Resultado observado y notas
+<textarea id="observed" rows="3" placeholder="Ejemplo: se muestran seis periodos y no se solicita otra autenticación."></textarea></label>
+<div class="test-actions"><button id="pass" type="button">✓ Aprobado</button><button id="fail" type="button">✕ Falló</button><button id="blocked" type="button">◌ Bloqueado</button></div>
+<p class="status" id="progress">0 de 15 casos registrados</p>
+<button class="action secondary" id="export" type="button">Exportar resultados a CSV</button>
+<p class="hint">El resultado se guarda en este navegador hasta que lo borres. No se envía a ningún servidor. Marca «Aprobado» solo después de comprobar el resultado esperado.</p>
+</aside>
+</div>
+<p class="footnote"><strong>Trazabilidad:</strong> casos QA-DF-001 a QA-DF-015 de la matriz reconstruida. Los recorridos App/Web y la ventana integrada derivan del recuerdo profesional; los controles de privacidad, errores y sesiones caducadas son escenarios educativos nuevos. La ejecución y sus resultados pertenecen exclusivamente a este prototipo.</p>
+</main>
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const periods=["Octubre 2026","Septiembre 2026","Agosto 2026","Julio 2026","Junio 2026","Mayo 2026","Abril 2026"];
+const cases=[
+["QA-DF-001","App: acceso ya autenticado","Se habilita el recorrido sin pedir otro inicio de sesión."],
+["QA-DF-002","App: últimas seis facturas","La lista ofrece seis periodos ficticios."],
+["QA-DF-003","App: entrega del PDF","El documento elegido aparece como enlace PDF en el chat."],
+["QA-DF-004","App: solo dos facturas","La lista contiene únicamente dos documentos disponibles."],
+["QA-DF-005","App: sesión caducada","No se entrega un PDF cuando la sesión ficticia caduca."],
+["QA-DF-006","Web: ventana integrada","Aparece el formulario de autenticación dentro del chat."],
+["QA-DF-007","Web: inicio válido","Tras usar credenciales demo, se entrega el PDF en el chat."],
+["QA-DF-008","Web: credenciales erróneas","No se entrega ningún PDF si el acceso falla."],
+["QA-DF-009","Web: cancelar acceso","La cancelación no entrega PDF ni declara acceso exitoso."],
+["QA-DF-010","Web: no pedir clave en mensaje","Las credenciales se ingresan en formulario, no como texto del chat."],
+["QA-DF-011","Web: sesión caducada","Se impide acceder al documento hasta una nueva autenticación."],
+["QA-DF-012","Ambos: falla el servicio","Se informa el error y no se afirma descarga exitosa."],
+["QA-DF-013","Ambos: documento ajeno","La solicitud de cuenta B es denegada a cuenta A."],
+["QA-DF-014","App: séptimo periodo no visible","Con siete periodos en origen se muestran solo los seis más recientes."],
+["QA-DF-015","Ambos: entrega conversacional","El documento aparece dentro de ambos chats después del acceso válido."]
+];
+let channel="app",webAuth=false,loginWidget=null;
+const storageKey="qa_df_demo_results_v1";
+let results={};
+try{results=JSON.parse(localStorage.getItem(storageKey)||"{}")}catch(e){results={}}
+function msg(side,txt){const n=document.createElement("div");n.className="msg "+side;n.textContent=txt;$("messages").append(n);scroll();return n}
+function scroll(){$("messages").scrollTop=$("messages").scrollHeight}
+function clearChat(){$("messages").textContent="";loginWidget=null;msg("bot",channel==="app"?"Hola. Estás en la versión de práctica para App con sesión ficticia iniciada.":"Hola. Estás en la versión de práctica para Web. Para consultar documentos deberás autenticarte.");}
+function switchChannel(x){channel=x;webAuth=false;$("tab-app").setAttribute("aria-selected",String(x==="app"));$("tab-web").setAttribute("aria-selected",String(x==="web"));$("app-config").hidden=x!=="app";$("web-config").hidden=x!=="web";$("channel-label").textContent=x==="app"?"Canal App · ambiente simulado":"Canal Web · ambiente simulado";clearChat()}
+function widget(title){const n=document.createElement("div");n.className="widget";const h=document.createElement("p");h.className="widget-title";h.textContent=title;n.append(h);$("messages").append(n);scroll();return n}
+function button(title,fn,cls){const b=document.createElement("button");b.type="button";b.textContent=title;b.className=cls||"";b.addEventListener("click",fn);return b}
+function makePdf(period){
+const lines=["FACTURA DE PRUEBA - NO VALIDA PARA PAGOS","PROTOTIPO EDUCATIVO DE PORTAFOLIO","Cliente: Cuenta DEMO A","Periodo: "+period,"Valor ilustrativo: COP 100000","Documento ficticio. No es una factura de Claro."];
+let commands="BT /F1 19 Tf 54 735 Td ("+lines[0]+") Tj ET\n";
+for(let i=1;i<lines.length;i++){commands+="BT /F1 12 Tf 54 "+(690-i*27)+" Td ("+lines[i]+") Tj ET\n";}
+let out="%PDF-1.4\n",off=[0];const objects=[
+"<< /Type /Catalog /Pages 2 0 R >>",
+"<< /Type /Pages /Count 1 /Kids [3 0 R] >>",
+"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>",
+"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+"<< /Length "+commands.length+" >>\nstream\n"+commands+"endstream"
+];
+for(let i=0;i<objects.length;i++){off.push(out.length);out+=(i+1)+" 0 obj\n"+objects[i]+"\nendobj\n";}
+const xref=out.length;out+="xref\n0 6\n0000000000 65535 f \n";for(let i=1;i<off.length;i++){out+=String(off[i]).padStart(10,"0")+" 00000 n \n";}
+out+="trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n"+xref+"\n%%EOF\n";
+return URL.createObjectURL(new Blob([out],{type:"application/pdf"}));
+}
+function delivered(period){
+if($("service").value==="fail"){msg("bot","No fue posible generar el documento de prueba. Servicio de PDF simulado no disponible.");return;}
+if(channel==="app"&&$("app-session").value!=="valid"){msg("bot","Sesión de prueba caducada. No se puede mostrar el documento.");return;}
+if(channel==="web"&&!webAuth){msg("bot","Es necesario autenticarte antes de ver el documento.");return;}
+const card=document.createElement("div");card.className="doc";const strong=document.createElement("strong");strong.textContent="📄 PDF ficticio disponible en el chat";
+const detail=document.createElement("div");detail.textContent="Cuenta DEMO A · "+period;detail.className="hint";
+const a=document.createElement("a");a.href=makePdf(period);a.download="Factura_Ficticia_"+period.replaceAll(" ","_")+".pdf";a.textContent="Descargar PDF de prueba";a.target="_blank";a.rel="noopener";
+card.append(strong,detail,a);$("messages").append(card);scroll();
+}
+function showApp(){const available=Math.min(Number($("count").value),6);msg("bot","Estas son las facturas disponibles para tu cuenta ficticia. Selecciona un periodo.");const n=widget("Selecciona una factura");const list=document.createElement("div");list.className="option-list";periods.slice(0,available).forEach(p=>list.append(button(p,()=>{msg("user","Descargar "+p);delivered(p)})));n.append(list)}
+function login(){
+if(loginWidget){loginWidget.remove();loginWidget=null;}
+const n=widget("Autenticación web integrada en el chat · DEMO");loginWidget=n;const form=document.createElement("form");form.className="login";
+const l1=document.createElement("label");l1.textContent="Usuario ficticio";const user=document.createElement("input");user.type="text";user.autocomplete="off";user.placeholder="demo";user.required=true;l1.append(user);
+const l2=document.createElement("label");l2.textContent="Contraseña ficticia";const pass=document.createElement("input");pass.type="password";pass.autocomplete="off";pass.placeholder="demo123";pass.required=true;l2.append(pass);
+const row=document.createElement("div");row.className="row";const ok=button("Iniciar sesión de prueba",null,"action primary");ok.type="submit";const cancel=button("Cancelar",()=>{n.remove();loginWidget=null;msg("bot","Autenticación cancelada. No se entrega la factura.")},"action");row.append(ok,cancel);form.append(l1,l2,row);n.append(form);form.addEventListener("submit",e=>{e.preventDefault();if(user.value==="demo"&&pass.value==="demo123"){webAuth=true;n.remove();loginWidget=null;msg("bot","Autenticación ficticia correcta. Se presenta la factura más reciente.");delivered(periods[0]);}else{webAuth=false;const alert=document.createElement("p");alert.className="alert";alert.textContent="Datos de prueba incorrectos. No se entrega ningún PDF.";const old=n.querySelector(".alert");if(old)old.remove();form.append(alert);pass.value="";}});scroll()}
+function start(){msg("user","Quiero descargar mi factura");if(channel==="app"){if($("app-session").value==="expired"){msg("bot","La sesión de prueba ha caducado. No puedo mostrar datos ni facturas.");return;}showApp();}else{if(webAuth){msg("bot","Sesión ficticia autenticada. Se entrega la factura más reciente.");delivered(periods[0]);}else{msg("bot","Para acceder a tu factura debes iniciar sesión en esta ventana integrada.");login();}}}
+$("tab-app").onclick=()=>switchChannel("app");$("tab-web").onclick=()=>switchChannel("web");
+$("start").onclick=start;$("reset").onclick=()=>{webAuth=false;clearChat()};
+$("other").onclick=()=>{msg("user","Quiero la factura de otra cuenta (cliente B)");msg("bot","Acceso denegado. La cuenta de prueba A no está autorizada para documentos de otra cuenta.");};
+$("expire-web").onclick=()=>{webAuth=false;msg("bot","Sesión web de prueba caducada. Debes autenticarte de nuevo antes de acceder a la factura.");};
+cases.forEach(c=>{const o=document.createElement("option");o.value=c[0];o.textContent=c[0]+" · "+c[1];$("case").append(o)});
+function updateCase(){const c=cases.find(x=>x[0]===$("case").value);$("case-info").textContent="Esperado: "+c[2];$("observed").value=results[c[0]]?.nota||""}
+$("case").onchange=updateCase;
+function refresh(){const n=Object.keys(results).length;$("progress").textContent=n+" de 15 casos registrados";}
+function save(status){const id=$("case").value;const obs=$("observed").value.trim();if(!obs){alert("Describe qué observaste antes de registrar el resultado.");$("observed").focus();return;}results[id]={estado:status,nota:obs,fecha:new Date().toLocaleString("es-CO"),fuente:"Prototipo educativo"};try{localStorage.setItem(storageKey,JSON.stringify(results))}catch(e){}refresh();alert("Resultado de "+id+" registrado en este navegador.");}
+$("pass").onclick=()=>save("Aprobado");$("fail").onclick=()=>save("Falló");$("blocked").onclick=()=>save("Bloqueado");
+$("export").onclick=()=>{const quote=x=>'"'+String(x||"").replaceAll('"','""')+'"';const rows=[["ID","Caso","Estado","Observacion","Fecha","Origen"],...cases.map(c=>[c[0],c[1],results[c[0]]?.estado||"No ejecutado",results[c[0]]?.nota||"",results[c[0]]?.fecha||"","Prototipo educativo"])];const csv="\ufeff"+rows.map(r=>r.map(quote).join(";")).join("\r\n");const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));const a=document.createElement("a");a.href=url;a.download="Resultados_QA_Descarga_Factura_Simulada.csv";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)};
+switchChannel("app");updateCase();refresh();
+})();
+</script>
+</body>
+</html>
